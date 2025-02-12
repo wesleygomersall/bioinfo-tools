@@ -79,35 +79,32 @@ codons = {'AAA': ['Lys', 'K',	'Lysine'],
           'TTT': ['Phe', 'F', 'Phenylalanine']}
 
 class nuc_acid(): 
-    """
-    Nucleic acid sequence, default DNA, may be RNA.
+    '''Nucleic acid sequence, default DNA, may be RNA.
     If RNA, user must define. 
-    No 'N' bases allowed.""" 
+    No 'N' bases allowed.''' 
 
     DEFAULT_KIND = "DNA"
 
     def __init__(self, sequence: str, identity: str = DEFAULT_KIND):
-        self.kind = identity
-        self.seq = sequence.upper()
-        self.length = len(sequence)
+        self.kind: str = identity
+        self.seq: str = sequence.upper()
+        self.length: int = len(sequence)
         assert self.validateseq()
-        self.rc = self.rev_comp()
 
     def validateseq(self): 
-        """Must be a sequence containing only A T C or G if DNA,
+        '''Must be a sequence containing only A T C or G if DNA,
         or a A U C or G if RNA.
-        Case insensitive."""
+        Case insensitive.'''
         if self.kind == "DNA": return set(DNA_bases).issuperset(self.seq)
         if self.kind == "RNA": return set(RNA_bases).issuperset(self.seq)
 
-    def gc_content(self):
-        """Calculate GC content of sequence. 
-        Return float value."""
+    def gc_content(self) -> float:
+        '''Calculate GC content of sequence.'''
         gcount: int = self.seq.count('G') + self.seq.count('g')
         ccount: int = self.seq.count('C') + self.seq.count('c')
         return (ccount + gcount) / self.length
 
-    def rev_comp(self):
+    def rev_comp(self) -> str:
         '''Returns the reverse complement of seq.'''
         reversecomp: str = ""
         if self.kind == "DNA":
@@ -143,10 +140,10 @@ class nuc_acid():
         self.seq = dna
         self.kind = "DNA"
 
-    def translate(self): 
-        """Translate DNA nuc_acid. 
+    def translate(self) -> str: 
+        '''Translate DNA nuc_acid. 
         Sequence must have a start codon to find the reading frame.
-        'O' denotes stop codon."""
+        Translates up to first stop codon encountered in seq.'''
 
         assert self.kind == "DNA"
         
@@ -176,6 +173,7 @@ class nuc_acid():
                 if i > len(self.seq): break
 
                 aminoacid = codons[frame][1] # only want the 1-letter a.a. code
+                if aminoacid == "O": break # do not translate past the first "stop" codon
                 protein = protein + aminoacid
         return protein
 
@@ -184,11 +182,12 @@ if __name__ == "__main__":
     tseq2 = nuc_acid("AUGGGCGC", "RNA") 
     tseq3 = nuc_acid("ATCGatcg") 
     tseq4 = nuc_acid("ATGCTGGTGACG")
-    tseq5 = nuc_acid("AAAAAAAATGCTGGTGACGTGA")
+    tseq5 = nuc_acid("AAAAAAAATGCTGACGTGA")
     tseq6 = nuc_acid("AAAAAAAAGTGA")
+    tseq7 = nuc_acid("ATGCTGGTGACGA")
 
-    assert tseq1.rc == "GCGCCCAT"
-    assert tseq2.rc == "GCGCCCAU"
+    assert tseq1.rev_comp() == "GCGCCCAT" 
+    assert tseq2.rev_comp() == "GCGCCCAU" 
     print("Reverse complement working correctly.")
     
     assert tseq3.gc_content() == 0.5
@@ -210,6 +209,7 @@ if __name__ == "__main__":
     print("Transcription and reverse transcription working correctly.")
 
     assert tseq4.translate() == "MLVT"
-    assert tseq5.translate() == "MLVTO"
+    assert tseq5.translate() == "MLT"
     assert tseq6.translate() == ""
+    assert tseq7.translate() == "MLVT"
     print("Translation working correctly.")
