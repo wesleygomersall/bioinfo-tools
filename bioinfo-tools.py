@@ -81,7 +81,13 @@ codons = {'AAA': ['Lys', 'K',	'Lysine'],
 class nuc_acid(): 
     '''Nucleic acid sequence, default DNA.
     If RNA, user must define is_DNA as False. 
-    No undefined bases allowed.''' 
+    No undefined bases allowed.
+
+    Attributes:
+    is_dna: (bool) Sequence is DNA (RNA else)
+    seq:    (str) Sequence
+    length: (int) Sequence length
+    ''' 
 
     def __init__(self, sequence: str, is_DNA: bool = True):
         self.is_dna: str = is_DNA
