@@ -13,103 +13,102 @@ RNA_comp = {'A':'U', 'a':'u',
             'C':'G', 'c':'g',
             'G':'C', 'g':'c',
             'N':'N', 'n':'n'}
+codons = {'AAA': ['Lys', 'K',	'Lysine'],
+          'AAC': ['Asn', 'N', 'Asparagine'],
+          'AAG': ['Lys', 'K', 'Lysine'],
+          'AAT': ['Asn', 'N', 'Asparagine'],
+          'ACA': ['Thr', 'T', 'Threonine'],
+          'ACC': ['Thr', 'T', 'Threonine'],
+          'ACG': ['Thr', 'T', 'Threonine'],
+          'ACT': ['Thr', 'T', 'Threonine'],
+          'AGA': ['Arg', 'R', 'Arginine'],
+          'AGC': ['Ser', 'S', 'Serine'],
+          'AGG': ['Arg', 'R', 'Arginine'],
+          'AGT': ['Ser', 'S', 'Serine'],
+          'ATA': ['Ile', 'I', 'Isoleucine'],
+          'ATC': ['Ile', 'I', 'Isoleucine'],
+          'ATG': ['Met', 'M', 'Methionine'],
+          'ATT': ['Ile', 'I', 'Isoleucine'],
+          'CAA': ['Gln', 'Q', 'Glutamine'],
+          'CAC': ['His', 'H', 'Histidine'],
+          'CAG': ['Gln', 'Q', 'Glutamine'],
+          'CAT': ['His', 'H', 'Histidine'],
+          'CCA': ['Pro', 'P', 'Proline'],
+          'CCC': ['Pro', 'P', 'Proline'],
+          'CCG': ['Pro', 'P', 'Proline'],
+          'CCT': ['Pro', 'P', 'Proline'],
+          'CGA': ['Arg', 'R', 'Arginine'],
+          'CGC': ['Arg', 'R', 'Arginine'],
+          'CGG': ['Arg', 'R', 'Arginine'],
+          'CGT': ['Arg', 'R', 'Arginine'],
+          'CTA': ['Leu', 'L', 'Leucine'],
+          'CTC': ['Leu', 'L', 'Leucine'],
+          'CTG': ['Leu', 'L', 'Leucine'],
+          'CTT': ['Leu', 'L', 'Leucine'],
+          'GAA': ['Glu', 'E', 'Glutamic_acid'],
+          'GAC': ['Asp', 'D', 'Aspartic_acid'],
+          'GAG': ['Glu', 'E', 'Glutamic_acid'],
+          'GAT': ['Asp', 'D', 'Aspartic_acid'],
+          'GCA': ['Ala', 'A', 'Alanine'],
+          'GCC': ['Ala', 'A', 'Alanine'],
+          'GCG': ['Ala', 'A', 'Alanine'],
+          'GCT': ['Ala', 'A', 'Alanine'],
+          'GGA': ['Gly', 'G', 'Glycine'],
+          'GGC': ['Gly', 'G', 'Glycine'],
+          'GGG': ['Gly', 'G', 'Glycine'],
+          'GGT': ['Gly', 'G', 'Glycine'],
+          'GTA': ['Val', 'V', 'Valine'],
+          'GTC': ['Val', 'V', 'Valine'],
+          'GTG': ['Val', 'V', 'Valine'],
+          'GTT': ['Val', 'V', 'Valine'],
+          'TAA': ['Stp', 'O', 'Stop'],
+          'TAC': ['Tyr', 'Y', 'Tyrosine'],
+          'TAG': ['Stp', 'O', 'Stop'],
+          'TAT': ['Tyr', 'Y', 'Tyrosine'],
+          'TCA': ['Ser', 'S', 'Serine'],
+          'TCC': ['Ser', 'S', 'Serine'],
+          'TCG': ['Ser', 'S', 'Serine'],
+          'TCT': ['Ser', 'S', 'Serine'],
+          'TGA': ['Stp', 'O', 'Stop'],
+          'TGC': ['Cys', 'C', 'Cysteine'],
+          'TGG': ['Trp', 'W', 'Tryptophan'],
+          'TGT': ['Cys', 'C', 'Cysteine'],
+          'TTA': ['Leu', 'L', 'Leucine'],
+          'TTC': ['Phe', 'F', 'Phenylalanine'],
+          'TTG': ['Leu', 'L', 'Leucine'],
+          'TTT': ['Phe', 'F', 'Phenylalanine']}
 
-codons = {
-        'AAA': ['Lys', 'K',	'Lysine'],
-        'AAC': ['Asn', 'N', 'Asparagine'],
-        'AAG': ['Lys', 'K', 'Lysine'],
-        'AAT': ['Asn', 'N', 'Asparagine'],
-        'ACA': ['Thr', 'T', 'Threonine'],
-        'ACC': ['Thr', 'T', 'Threonine'],
-        'ACG': ['Thr', 'T', 'Threonine'],
-        'ACT': ['Thr', 'T', 'Threonine'],
-        'AGA': ['Arg', 'R', 'Arginine'],
-        'AGC': ['Ser', 'S', 'Serine'],
-        'AGG': ['Arg', 'R', 'Arginine'],
-        'AGT': ['Ser', 'S', 'Serine'],
-        'ATA': ['Ile', 'I', 'Isoleucine'],
-        'ATC': ['Ile', 'I', 'Isoleucine'],
-        'ATG': ['Met', 'M', 'Methionine'],
-        'ATT': ['Ile', 'I', 'Isoleucine'],
-        'CAA': ['Gln', 'Q', 'Glutamine'],
-        'CAC': ['His', 'H', 'Histidine'],
-        'CAG': ['Gln', 'Q', 'Glutamine'],
-        'CAT': ['His', 'H', 'Histidine'],
-        'CCA': ['Pro', 'P', 'Proline'],
-        'CCC': ['Pro', 'P', 'Proline'],
-        'CCG': ['Pro', 'P', 'Proline'],
-        'CCT': ['Pro', 'P', 'Proline'],
-        'CGA': ['Arg', 'R', 'Arginine'],
-        'CGC': ['Arg', 'R', 'Arginine'],
-        'CGG': ['Arg', 'R', 'Arginine'],
-        'CGT': ['Arg', 'R', 'Arginine'],
-        'CTA': ['Leu', 'L', 'Leucine'],
-        'CTC': ['Leu', 'L', 'Leucine'],
-        'CTG': ['Leu', 'L', 'Leucine'],
-        'CTT': ['Leu', 'L', 'Leucine'],
-        'GAA': ['Glu', 'E', 'Glutamic_acid'],
-        'GAC': ['Asp', 'D', 'Aspartic_acid'],
-        'GAG': ['Glu', 'E', 'Glutamic_acid'],
-        'GAT': ['Asp', 'D', 'Aspartic_acid'],
-        'GCA': ['Ala', 'A', 'Alanine'],
-        'GCC': ['Ala', 'A', 'Alanine'],
-        'GCG': ['Ala', 'A', 'Alanine'],
-        'GCT': ['Ala', 'A', 'Alanine'],
-        'GGA': ['Gly', 'G', 'Glycine'],
-        'GGC': ['Gly', 'G', 'Glycine'],
-        'GGG': ['Gly', 'G', 'Glycine'],
-        'GGT': ['Gly', 'G', 'Glycine'],
-        'GTA': ['Val', 'V', 'Valine'],
-        'GTC': ['Val', 'V', 'Valine'],
-        'GTG': ['Val', 'V', 'Valine'],
-        'GTT': ['Val', 'V', 'Valine'],
-        'TAA': ['Stp', 'O', 'Stop'],
-        'TAC': ['Tyr', 'Y', 'Tyrosine'],
-        'TAG': ['Stp', 'O', 'Stop'],
-        'TAT': ['Tyr', 'Y', 'Tyrosine'],
-        'TCA': ['Ser', 'S', 'Serine'],
-        'TCC': ['Ser', 'S', 'Serine'],
-        'TCG': ['Ser', 'S', 'Serine'],
-        'TCT': ['Ser', 'S', 'Serine'],
-        'TGA': ['Stp', 'O', 'Stop'],
-        'TGC': ['Cys', 'C', 'Cysteine'],
-        'TGG': ['Trp', 'W', 'Tryptophan'],
-        'TGT': ['Cys', 'C', 'Cysteine'],
-        'TTA': ['Leu', 'L', 'Leucine'],
-        'TTC': ['Phe', 'F', 'Phenylalanine'],
-        'TTG': ['Leu', 'L', 'Leucine'],
-        'TTT': ['Phe', 'F', 'Phenylalanine']}
-
-class sequence(): 
+class nuc_acid(): 
     """
     Nucleic acid sequence, default DNA, may be RNA.
     If RNA, user must define. 
-    No 'N' bases allowed.
-    """ 
+    No 'N' bases allowed.""" 
 
     DEFAULT_KIND = "DNA"
 
-    def __init__(self, seq, kind = DEFAULT_KIND):
-        self.kind = kind
-        self.seq = seq
+    def __init__(self, sequence: str, identity: str = DEFAULT_KIND):
+        self.kind = identity
+        self.seq = sequence.upper()
+        self.length = len(sequence)
         assert self.validateseq()
         self.rc = self.rev_comp()
 
     def validateseq(self): 
+        """Must be a sequence containing only A T C or G if DNA,
+        or a A U C or G if RNA.
+        Case insensitive."""
         if self.kind == "DNA": return set(DNA_bases).issuperset(self.seq)
         if self.kind == "RNA": return set(RNA_bases).issuperset(self.seq)
 
     def gc_content(self):
-        length: int = len(self.seq)
+        """Calculate GC content of sequence. 
+        Return float value."""
         gcount: int = self.seq.count('G') + self.seq.count('g')
         ccount: int = self.seq.count('C') + self.seq.count('c')
-        acount: int = self.seq.count('A') + self.seq.count('a')
-        tcount: int = self.seq.count('T') + self.seq.count('t')
-        return (ccount + gcount)/length
+        return (ccount + gcount) / self.length
 
     def rev_comp(self):
         '''Returns the reverse complement of seq.'''
-
         reversecomp: str = ""
         if self.kind == "DNA":
             for index in range(len(self.seq)):
@@ -119,19 +118,98 @@ class sequence():
                 reversecomp = reversecomp + RNA_comp[self.seq[-1*(index + 1)]]
         return reversecomp
 
-    def whatami(self):
-        print(self.kind) 
+    def transcribe(self):
+        '''Transcribes DNA sequence into RNA sequence in-place. 
+        Assumes DNA sequence is coding.
+        This method changes seq to RNA and kind to "RNA"'''
 
-    def uppercase(self): 
-        self.seq = self.seq.upper()
-        pass
+        assert self.kind == "DNA"
+        rna = ""
+        for i in range(len(self.seq)): 
+            if self.seq[i] == "T": rna = rna + "U"
+            else: rna = rna + self.seq[i]
+        self.seq = rna
+        self.kind = "RNA"
+
+    def rev_transcribe(self):
+        '''Reverse-transcribes RNA sequence into DNA sequence in-place. 
+        Seq becomes coding DNA sequence, type becomes "DNA"'''
+
+        assert self.kind == "RNA"
+        dna = ""
+        for i in range(len(self.seq)): 
+            if self.seq[i] == "U": dna = dna + "T"
+            else: dna = dna + self.seq[i]
+        self.seq = dna
+        self.kind = "DNA"
+
+    def translate(self): 
+        """Translate DNA nuc_acid. 
+        Sequence must have a start codon to find the reading frame.
+        'O' denotes stop codon."""
+
+        assert self.kind == "DNA"
+        
+        # to begin: empty protein str and not translating
+        protein: str = ""; translating: bool = False 
+        frame = self.seq[0:3]; i = 3
+
+        if frame == 'ATG': 
+            translating = True; protein = "M"
+
+        if not translating: # find start codon
+            while True: 
+                if i == len(self.seq): break # in case there is no start codon
+
+                frame = frame[1:3] + self.seq[i]
+                i += 1 
+
+                if frame == "ATG": 
+                    translating = True; protein = "M"
+                    break
+
+        if translating: 
+            while True: 
+                frame = self.seq[i:i+3]
+                i += 3
+
+                if i > len(self.seq): break
+
+                aminoacid = codons[frame][1] # only want the 1-letter a.a. code
+                protein = protein + aminoacid
+        return protein
 
 if __name__ == "__main__":
-    tseq = sequence("ATGGGCGC")
-    tseq.whatami()
-    tseq2 = sequence("AUGGGCGC", "RNA") 
-    print(tseq2.rc)
-    tseq3 = sequence("ATCGatcgg") 
-    tseq3.uppercase()
-    print(tseq3.seq)
-    print(tseq3.gc_content())
+    tseq1 = nuc_acid("ATGGGCGC")
+    tseq2 = nuc_acid("AUGGGCGC", "RNA") 
+    tseq3 = nuc_acid("ATCGatcg") 
+    tseq4 = nuc_acid("ATGCTGGTGACG")
+    tseq5 = nuc_acid("AAAAAAAATGCTGGTGACGTGA")
+    tseq6 = nuc_acid("AAAAAAAAGTGA")
+
+    assert tseq1.rc == "GCGCCCAT"
+    assert tseq2.rc == "GCGCCCAU"
+    print("Reverse complement working correctly.")
+    
+    assert tseq3.gc_content() == 0.5
+    assert tseq4.gc_content() == 7/12
+    print("GC content correctly calculated.")
+
+    tseq1.transcribe()
+    assert tseq1.seq == "AUGGGCGC"
+    assert tseq1.kind == "RNA"
+    tseq1.rev_transcribe()
+    assert tseq1.seq == "ATGGGCGC"
+    assert tseq1.kind == "DNA"
+    tseq4.transcribe()
+    assert tseq4.seq == "AUGCUGGUGACG"
+    assert tseq4.kind == "RNA"
+    tseq4.rev_transcribe()
+    assert tseq4.seq == "ATGCTGGTGACG"
+    assert tseq4.kind == "DNA"
+    print("Transcription and reverse transcription working correctly.")
+
+    assert tseq4.translate() == "MLVT"
+    assert tseq5.translate() == "MLVTO"
+    assert tseq6.translate() == ""
+    print("Translation working correctly.")
