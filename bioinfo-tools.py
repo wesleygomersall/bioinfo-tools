@@ -79,14 +79,12 @@ codons = {'AAA': ['Lys', 'K',	'Lysine'],
           'TTT': ['Phe', 'F', 'Phenylalanine']}
 
 class nuc_acid(): 
-    '''Nucleic acid sequence, default DNA, may be RNA.
-    If RNA, user must define. 
-    No 'N' bases allowed.''' 
+    '''Nucleic acid sequence, default DNA.
+    If RNA, user must define is_DNA as False. 
+    No undefined bases allowed.''' 
 
-    DEFAULT_KIND = "DNA"
-
-    def __init__(self, sequence: str, identity: str = DEFAULT_KIND):
-        self.kind: str = identity
+    def __init__(self, sequence: str, is_DNA: bool = True):
+        self.is_dna: str = is_DNA
         self.seq: str = sequence.upper()
         self.length: int = len(sequence)
         assert self.validateseq()
@@ -95,8 +93,8 @@ class nuc_acid():
         '''Must be a sequence containing only A T C or G if DNA,
         or a A U C or G if RNA.
         Case insensitive.'''
-        if self.kind == "DNA": return set(DNA_bases).issuperset(self.seq)
-        if self.kind == "RNA": return set(RNA_bases).issuperset(self.seq)
+        if self.is_dna == True: return set(DNA_bases).issuperset(self.seq)
+        if self.is_dna == False: return set(RNA_bases).issuperset(self.seq)
 
     def gc_content(self) -> float:
         '''Calculate GC content of sequence.'''
@@ -107,45 +105,45 @@ class nuc_acid():
     def rev_comp(self) -> str:
         '''Returns the reverse complement of seq.'''
         reversecomp: str = ""
-        if self.kind == "DNA":
+        if self.is_dna == True:
             for index in range(len(self.seq)):
                 reversecomp = reversecomp + DNA_comp[self.seq[-1*(index + 1)]]
-        if self.kind == "RNA": 
+        if self.is_dna == False: 
             for index in range(len(self.seq)):
                 reversecomp = reversecomp + RNA_comp[self.seq[-1*(index + 1)]]
         return reversecomp
 
     def transcribe(self):
-        '''Transcribes DNA sequence into RNA sequence in-place. 
+        '''Transcribes DNA sequence into RNA in-place. 
         Assumes DNA sequence is coding.
-        This method changes seq to RNA and kind to "RNA"'''
+        Changes is_dna to False'''
 
-        assert self.kind == "DNA"
+        assert self.is_dna == True 
         rna = ""
         for i in range(len(self.seq)): 
             if self.seq[i] == "T": rna = rna + "U"
             else: rna = rna + self.seq[i]
         self.seq = rna
-        self.kind = "RNA"
+        self.is_dna = False 
 
     def rev_transcribe(self):
-        '''Reverse-transcribes RNA sequence into DNA sequence in-place. 
-        Seq becomes coding DNA sequence, type becomes "DNA"'''
+        '''Reverse-transcribes RNA sequence into DNA in-place. 
+        Changes is_DNA to True'''
 
-        assert self.kind == "RNA"
+        assert self.is_dna == False 
         dna = ""
         for i in range(len(self.seq)): 
             if self.seq[i] == "U": dna = dna + "T"
             else: dna = dna + self.seq[i]
         self.seq = dna
-        self.kind = "DNA"
+        self.is_dna = True 
 
     def translate(self) -> str: 
         '''Translate DNA nuc_acid. 
         Sequence must have a start codon to find the reading frame.
         Translates up to first stop codon encountered in seq.'''
 
-        assert self.kind == "DNA"
+        assert self.is_dna ==True 
         
         # to begin: empty protein str and not translating
         protein: str = ""; translating: bool = False 
@@ -179,7 +177,7 @@ class nuc_acid():
 
 if __name__ == "__main__":
     tseq1 = nuc_acid("ATGGGCGC")
-    tseq2 = nuc_acid("AUGGGCGC", "RNA") 
+    tseq2 = nuc_acid("AUGGGCGC", False) 
     tseq3 = nuc_acid("ATCGatcg") 
     tseq4 = nuc_acid("ATGCTGGTGACG")
     tseq5 = nuc_acid("AAAAAAAATGCTGACGTGA")
@@ -196,16 +194,16 @@ if __name__ == "__main__":
 
     tseq1.transcribe()
     assert tseq1.seq == "AUGGGCGC"
-    assert tseq1.kind == "RNA"
+    assert tseq1.is_dna == False 
     tseq1.rev_transcribe()
     assert tseq1.seq == "ATGGGCGC"
-    assert tseq1.kind == "DNA"
+    assert tseq1.is_dna == True 
     tseq4.transcribe()
     assert tseq4.seq == "AUGCUGGUGACG"
-    assert tseq4.kind == "RNA"
+    assert tseq4.is_dna == False 
     tseq4.rev_transcribe()
     assert tseq4.seq == "ATGCTGGTGACG"
-    assert tseq4.kind == "DNA"
+    assert tseq4.is_dna ==True 
     print("Transcription and reverse transcription working correctly.")
 
     assert tseq4.translate() == "MLVT"
