@@ -78,7 +78,7 @@ codons = {'AAA': ['Lys', 'K',	'Lysine'],
           'TTG': ['Leu', 'L', 'Leucine'],
           'TTT': ['Phe', 'F', 'Phenylalanine']}
 
-class nuc_acid(): 
+class NucleicAcid(): 
     '''Nucleic acid sequence, default DNA.
     If RNA, user must define is_DNA as False. 
     No undefined bases allowed.
@@ -182,13 +182,13 @@ class nuc_acid():
         return protein
 
 if __name__ == "__main__":
-    tseq1 = nuc_acid("ATGGGCGC")
-    tseq2 = nuc_acid("AUGGGCGC", False) 
-    tseq3 = nuc_acid("ATCGatcg") 
-    tseq4 = nuc_acid("ATGCTGGTGACG")
-    tseq5 = nuc_acid("AAAAAAAATGCTGACGTGA")
-    tseq6 = nuc_acid("AAAAAAAAGTGA")
-    tseq7 = nuc_acid("ATGCTGGTGACGA")
+    tseq1 = NucleicAcid("ATGGGCGC")
+    tseq2 = NucleicAcid("AUGGGCGC", False) 
+    tseq3 = NucleicAcid("ATCGatcg") 
+    tseq4 = NucleicAcid("ATGCTGGTGACG")
+    tseq5 = NucleicAcid("AAAAAAAATGCTGACGTGA")
+    tseq6 = NucleicAcid("AAAAAAAAGTGA")
+    tseq7 = NucleicAcid("ATGCTGGTGACGA")
 
     assert tseq1.rev_comp() == "GCGCCCAT" 
     assert tseq2.rev_comp() == "GCGCCCAU" 
