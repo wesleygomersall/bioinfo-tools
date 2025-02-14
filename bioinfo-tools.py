@@ -1,19 +1,22 @@
 #!/usr/bin/env python 
 
-DNA_bases = "ATCGatcg"
-RNA_bases = "AUCGaucg"
+DNA_BASES = "ATCGatcg"
 
-DNA_comp = {'A':'T', 'a':'t',
+RNA_BASES = "AUCGaucg"
+
+DNA_COMP = {'A':'T', 'a':'t',
             'T':'A', 't':'a',
             'C':'G', 'c':'g',
             'G':'C', 'g':'c',
             'N':'N', 'n':'n'}
-RNA_comp = {'A':'U', 'a':'u',
+
+RNA_COMP = {'A':'U', 'a':'u',
             'U':'A', 'u':'a',
             'C':'G', 'c':'g',
             'G':'C', 'g':'c',
             'N':'N', 'n':'n'}
-codons = {'AAA': ['Lys', 'K',	'Lysine'],
+
+CODONS = {'AAA': ['Lys', 'K',	'Lysine'],
           'AAC': ['Asn', 'N', 'Asparagine'],
           'AAG': ['Lys', 'K', 'Lysine'],
           'AAT': ['Asn', 'N', 'Asparagine'],
@@ -78,6 +81,23 @@ codons = {'AAA': ['Lys', 'K',	'Lysine'],
           'TTG': ['Leu', 'L', 'Leucine'],
           'TTT': ['Phe', 'F', 'Phenylalanine']}
 
+IUPAC_REGEX = {'A': '[Aa]', 'a': '[Aa]',
+               'C': '[Cc]', 'c': '[Cc]',
+               'T': '[Tt]', 't': '[Tt]', 
+               'U': '[Uu]', 'u': '[Uu]',
+               'G': '[Gg]', 'g': '[Gg]',
+               'W': '[AaTt]', 'w': '[AaTt]',
+               'S': '[CcGg]', 's': '[CcGg]',
+               'M': '[AaCc]', 'm': '[AaCc]',
+               'K': '[GgTt]', 'k': '[GgTt]',
+               'R': '[AaGg]', 'r': '[AaGg]',
+               'Y': '[CcTt]', 'y': '[CcTt]',
+               'B': '[CcGgTt]', 'b': '[CcGgTt]',
+               'D': '[AaGgTt]', 'd': '[AaGgTt]',
+               'H': '[AaCcTt]', 'h': '[AaCcTt]',
+               'V': '[AaCcGg]', 'v': '[AaCcGg]',
+               'N': '[AaCcTtUuGg]', 'n': '[AaCcTtUuGg]'}
+
 class NucleicAcid(): 
     '''Nucleic acid sequence, default DNA.
     If RNA, user must define is_DNA as False. 
@@ -99,8 +119,8 @@ class NucleicAcid():
         '''Must be a sequence containing only A T C or G if DNA,
         or a A U C or G if RNA.
         Case insensitive.'''
-        if self.is_dna == True: return set(DNA_bases).issuperset(self.seq)
-        if self.is_dna == False: return set(RNA_bases).issuperset(self.seq)
+        if self.is_dna == True: return set(DNA_BASES).issuperset(self.seq)
+        if self.is_dna == False: return set(RNA_BASES).issuperset(self.seq)
 
     def gc_content(self) -> float:
         '''Calculate GC content of sequence.'''
@@ -113,10 +133,10 @@ class NucleicAcid():
         reversecomp: str = ""
         if self.is_dna == True:
             for index in range(len(self.seq)):
-                reversecomp = reversecomp + DNA_comp[self.seq[-1*(index + 1)]]
+                reversecomp = reversecomp + DNA_COMP[self.seq[-1*(index + 1)]]
         if self.is_dna == False: 
             for index in range(len(self.seq)):
-                reversecomp = reversecomp + RNA_comp[self.seq[-1*(index + 1)]]
+                reversecomp = reversecomp + RNA_COMP[self.seq[-1*(index + 1)]]
         return reversecomp
 
     def transcribe(self):
@@ -176,7 +196,7 @@ class NucleicAcid():
 
                 if i > len(self.seq): break
 
-                aminoacid = codons[frame][1] # only want the 1-letter a.a. code
+                aminoacid = CODONS[frame][1] # only want the 1-letter a.a. code
                 if aminoacid == "O": break # do not translate past the first "stop" codon
                 protein = protein + aminoacid
         return protein
